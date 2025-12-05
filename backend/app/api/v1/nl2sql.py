@@ -52,7 +52,7 @@ async def nl2sql_handler(req: NLRequest):
 
     # 调用 LLM
     try:
-        llm_output = await generate_sql_from_llm(prompt)
+        llm_output =  generate_sql_from_llm(prompt)
     except Exception as e:
         logging.error(f"LLM 调用失败: {e}")
         raise HTTPException(status_code=502, detail="LLM 服务调用失败")
@@ -68,3 +68,19 @@ async def nl2sql_handler(req: NLRequest):
         "raw_output": llm_output,
         "schema_used": schema_json  # 可选返回，方便调试
     }
+
+if __name__ == "__main__":
+    import asyncio
+    from app.api.v1.nl2sql import nl2sql_handler
+
+    async def test():
+        result = await nl2sql_handler(
+            NLRequest(text="生成一个查询所有用户的 SQL 语句")
+        )
+        print(result)
+
+    asyncio.run(test())
+
+#      print(api_key)
+#      llm_output = generate_sql_from_llm("生成一个查询所有用户的 SQL 语句,用户表为users")
+#      print(llm_output)

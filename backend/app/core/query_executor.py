@@ -89,9 +89,9 @@ async def run_sql(sql: str) -> List[Dict]:
         logger.error(f"执行 SQL 失败：{e}")
         raise
 
-if __name__ == "__main__":
-    import asyncio
+# if __name__ == "__main__":
+#     import asyncio
 
-    test_sql = "SELECT * FROM users;"
-    result = asyncio.run(run_sql(test_sql))
-    print(result)
+#     test_sql = "SELECT * FROM users;"
+#     result = asyncio.run(run_sql(test_sql))
+#     print(result)
