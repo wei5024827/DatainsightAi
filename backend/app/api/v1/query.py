@@ -34,6 +34,7 @@ async def run_query(sql: str):
     """
 
     logging.info(f"收到 Query SQL：{sql}")
+    print(11111111)
 
     # -----------------------------
     # 1. 输入校验
