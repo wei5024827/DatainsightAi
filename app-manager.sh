@@ -3,15 +3,22 @@
 # DataInsight AI 应用管理脚本
 # 用法: ./app-manager.sh [start|stop|status|restart]
 
+# 获取当前脚本的绝对路径
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # 配置参数
 APP_NAME="DataInsight AI"
-BACKEND_DIR="./backend"
-FRONTEND_DIR="./frontend"
+BACKEND_DIR="$SCRIPT_DIR/backend"
+FRONTEND_DIR="$SCRIPT_DIR/frontend"
 BACKEND_PORT=8000
 FRONTEND_PORT=5173
-BACKEND_PID_FILE="./backend.pid"
-FRONTEND_PID_FILE="./frontend.pid"
-LOG_FILE="./app.log"
+BACKEND_PID_FILE="$SCRIPT_DIR/work/backend.pid"
+FRONTEND_PID_FILE="$SCRIPT_DIR/work/frontend.pid"
+LOG_DIR="$SCRIPT_DIR/log"
+LOG_FILE="$LOG_DIR/app.log"
+
+# 确保日志目录存在
+mkdir -p "$LOG_DIR"
 
 # 颜色定义
 RED='\033[0;31m'
@@ -35,6 +42,22 @@ success() {
 
 warning() {
     echo -e "${YELLOW}[WARNING]${NC} $1" | tee -a "$LOG_FILE"
+}
+
+
+# 安全的端口清理函数
+kill_port_if_occupied() {
+    local port=$1
+    local service_name=$2
+    
+    local pids=$(lsof -ti:$port)
+    if [ -n "$pids" ]; then
+        log "找到占用${service_name}端口 ${port} 的进程: $pids"
+        kill -9 $pids
+        success "已杀掉占用端口 ${port} 的进程"
+    # else
+    #     log "${service_name}端口 ${port} 未被占用"
+    fi
 }
 
 # 检查端口是否被占用
@@ -88,12 +111,12 @@ start_backend() {
         source .venv/bin/activate
     fi
     
-    # 启动后端服务
-    nohup uvicorn app.main:app --host 0.0.0.0 --port $BACKEND_PORT --reload > ../backend.log 2>&1 &
+    # 启动后端服务，日志输出到log目录
+    nohup uvicorn app.main:app --host 0.0.0.0 --port $BACKEND_PORT --reload > "$LOG_DIR/backend.log" 2>&1 &
     BACKEND_PID=$!
-    echo $BACKEND_PID > "../$BACKEND_PID_FILE"
+    echo $BACKEND_PID > "$BACKEND_PID_FILE"
     
-    cd ..
+    cd "$SCRIPT_DIR"
     
     # 等待服务启动
     sleep 3
@@ -101,7 +124,7 @@ start_backend() {
         success "后端服务启动成功 (PID: $BACKEND_PID, 端口: $BACKEND_PORT)"
         return 0
     else
-        error "后端服务启动失败，请检查日志文件: backend.log"
+        error "后端服务启动失败，请检查日志文件: $LOG_DIR/backend.log"
         return 1
     fi
 }
@@ -122,12 +145,12 @@ start_frontend() {
     
     cd "$FRONTEND_DIR"
     
-    # 启动前端服务
-    nohup npm run dev > ../frontend.log 2>&1 &
+    # 启动前端服务，日志输出到log目录
+    nohup pnpm dev --host > "$LOG_DIR/frontend.log" 2>&1 &
     FRONTEND_PID=$!
-    echo $FRONTEND_PID > "../$FRONTEND_PID_FILE"
+    echo $FRONTEND_PID > "$FRONTEND_PID_FILE"
     
-    cd ..
+    cd "$SCRIPT_DIR"
     
     # 等待服务启动
     sleep 5
@@ -135,7 +158,7 @@ start_frontend() {
         success "前端服务启动成功 (PID: $FRONTEND_PID, 端口: $FRONTEND_PORT)"
         return 0
     else
-        error "前端服务启动失败，请检查日志文件: frontend.log"
+        error "前端服务启动失败，请检查日志文件: $LOG_DIR/frontend.log"
         return 1
     fi
 }
@@ -164,6 +187,10 @@ stop_service() {
     else
         warning "$service_name 服务未运行 (PID文件不存在)"
     fi
+
+    # 最后释放端口上的进程
+    kill_port_if_occupied 5173 "前端"
+    kill_port_if_occupied 8000 "后端"
 }
 
 # 启动所有服务
@@ -197,13 +224,13 @@ start_all() {
     success "$APP_NAME 启动完成!"
     echo ""
     echo "访问地址:"
-    echo "前端: http://localhost:$FRONTEND_PORT"
-    echo "后端API: http://localhost:$BACKEND_PORT"
-    echo "后端文档: http://localhost:$BACKEND_PORT/docs"
+    echo "前端: http://ai:$FRONTEND_PORT"
+    echo "后端API: http://ai:$BACKEND_PORT"
+    echo "后端文档: http://ai:$BACKEND_PORT/docs"
     echo ""
     echo "日志文件:"
-    echo "后端日志: backend.log"
-    echo "前端日志: frontend.log"
+    echo "后端日志: $LOG_DIR/backend.log"
+    echo "前端日志: $LOG_DIR/frontend.log"
     echo "管理脚本日志: $LOG_FILE"
 }
 

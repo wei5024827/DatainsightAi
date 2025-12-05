@@ -1,6 +1,3 @@
-# -----------------------------
-# 导入依赖
-# -----------------------------
 from fastapi import APIRouter, HTTPException
 from app.models.nl_request import NLRequest
 from app.core.llm_client import generate_sql_from_llm
@@ -74,18 +71,10 @@ async def nl2sql_handler(req: NLRequest):
         "schema_used": schema_json  # 可选返回，方便调试
     }
 
-# if __name__ == "__main__":
-#     import asyncio
-#     from app.api.v1.nl2sql import nl2sql_handler
+if __name__ == "__main__":
+   # import asyncio
+   # from app.api.v1.nl2sql import nl2sql_handler
 
-#     async def test():
-#         result = await nl2sql_handler(
-#             NLRequest(text="生成一个查询所有用户的 SQL 语句")
-#         )
-#         print(result)
 
-#     asyncio.run(test())
-
-#      print(api_key)
-#      llm_output = generate_sql_from_llm("生成一个查询所有用户的 SQL 语句,用户表为users")
-#      print(llm_output)
+    llm_output = generate_sql_from_llm("帮我查一下Alice在25年9月6号消费了多少钱")
+    print(llm_output)

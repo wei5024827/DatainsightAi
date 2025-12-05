@@ -88,13 +88,13 @@ async def get_schema():
 
 #test code
 
-# if __name__ == "__main__":
-#     import asyncio 
+if __name__ == "__main__":
+    import asyncio 
 
-#     schema = asyncio.run(get_schema())
+    schema = asyncio.run(get_schema())
 
-#     for table, cols in schema["schema"].items():
-#         print(f"=== 表：{table} ===")
-#         for col in cols:
-#             print(col)
-#         print()
+    for table, cols in schema["schema"].items():
+        print(f"=== 表：{table} ===")
+        for col in cols:
+            print(col)
+        print()

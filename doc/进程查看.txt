@@ -1,0 +1,44 @@
+
+查看进程
+lsof -ti:8000
+lsof -ti:5173
+
+
+
+
+# 查看python3相关的进程
+ps -ef | grep python3
+
+
+1. 系统网络调度器和自动升级服务
+root         221       1  0 11:26 ?        00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers 
+root         263       1  0 11:26 ?        00:00:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+
+
+--  主FastAPI服务进程（uvicorn）
+reslack     2990    1467  0 11:31 pts/6    00:00:18 /usr/bin/python3 /usr/local/bin/uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 
+
+-- 多进程资源跟踪器
+reslack     2991    2990  0 11:31 pts/6    00:00:00 /usr/bin/python3 -c from multiprocessing.resource_tracker import main;main(4) 
+
+-- 多进程子进程（处理请求）
+reslack    28203    2990  0 13:29 pts/6    00:00:01 /usr/bin/python3 -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=5, pipe_handle=7) --multiprocessing-fork
+
+
+
+# 前端进程
+reslack@LegionY7000P-IAH7:~/opt/github/datainsight-ai$ lsof -i:5173
+COMMAND  PID    USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+node    1401 reslack   20u  IPv6 307077      0t0  TCP *:5173 (LISTEN)
+node    1401 reslack   28u  IPv6 307085      0t0  TCP localhost:5173->localhost:4577 (ESTABLISHED)
+node    1401 reslack   30u  IPv6 422357      0t0  TCP host.docker.internal:5173->USER-20250725IW:50943 (ESTABLISHED)
+node    1401 reslack   31u  IPv6 562718      0t0  TCP host.docker.internal:5173->USER-20250725IW:52222 (ESTABLISHED)
+
+
+reslack@LegionY7000P-IAH7:~/opt/github/datainsight-ai$ ps -ef | grep 1401
+reslack     1401    1400  0 11:27 pts/0    00:00:04 node /home/reslack/opt/github/datainsight-ai/frontend/node_modules/.bin/../.pnpm/vite@7.2.6/node_modules/vite/bin/vite.js --host
+reslack     1417    1401  0 11:27 pts/0    00:00:07 /home/reslack/opt/github/datainsight-ai/frontend/node_modules/.pnpm/@esbuild+linux-x64@0.25.12/node_modules/@esbuild/linux-x64/bin/esbuild --service=0.25.12 --ping
+reslack    37928    2392  0 14:06 pts/15   00:00:00 grep --color=auto 1401
+
+# 一键查找并杀掉5173端口进程
+lsof -ti:5173 | xargs kill -9
