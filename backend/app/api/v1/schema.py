@@ -14,6 +14,10 @@ logger = logging.getLogger(__name__)
 
 # -----------------------------
 # 3. 创建路由对象
+# 数据库 Schema 返回接口 (GET /schema)
+# 功能：返回数据库的完整 Schema，用于帮助 LLM 生成 SQL。
+# 请求方式：GET
+# 示例：GET /schema
 # -----------------------------
 router = APIRouter(
     prefix="/schema",   # 访问路径: GET /schema

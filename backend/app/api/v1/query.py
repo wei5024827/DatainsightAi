@@ -14,6 +14,10 @@ from app.core.query_executor import run_sql
 
 # -----------------------------
 # 创建 /query 路由
+# SQL执行接口 (POST /query)
+# 功能：执行SQL查询并返回结果
+# 请求方式：POST
+# 请求体：{"sql": "SELECT * FROM users"}
 # -----------------------------
 router = APIRouter(
     prefix="/query",

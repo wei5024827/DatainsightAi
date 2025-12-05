@@ -14,6 +14,11 @@ from app.api.v1.schema import get_schema
 
 # -----------------------------
 # 创建路由对象
+# 自然语言转SQL接口 (POST /nl2sql)
+# 功能：将自然语言问题转换为SQL查询
+# 请求方式：POST
+# 请求体：{"text": "你的问题"}
+# 示例：查询用户数量、订单统计等
 # -----------------------------
 router = APIRouter(
     prefix="/nl2sql",
@@ -69,17 +74,17 @@ async def nl2sql_handler(req: NLRequest):
         "schema_used": schema_json  # 可选返回，方便调试
     }
 
-if __name__ == "__main__":
-    import asyncio
-    from app.api.v1.nl2sql import nl2sql_handler
+# if __name__ == "__main__":
+#     import asyncio
+#     from app.api.v1.nl2sql import nl2sql_handler
 
-    async def test():
-        result = await nl2sql_handler(
-            NLRequest(text="生成一个查询所有用户的 SQL 语句")
-        )
-        print(result)
+#     async def test():
+#         result = await nl2sql_handler(
+#             NLRequest(text="生成一个查询所有用户的 SQL 语句")
+#         )
+#         print(result)
 
-    asyncio.run(test())
+#     asyncio.run(test())
 
 #      print(api_key)
 #      llm_output = generate_sql_from_llm("生成一个查询所有用户的 SQL 语句,用户表为users")
