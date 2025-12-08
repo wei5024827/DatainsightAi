@@ -1,0 +1,440 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 10px; /* 减少页面内边距 */
+    font-size: 16px;
+}
+
+.container {
+    /* max-width: 1400px; */
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* 标题区域优化 */
+.header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 15px 20px; /* 进一步减少内边距 */
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.2em;
+    margin-bottom: 5px; /* 减少间距 */
+}
+
+.header p {
+    font-size: 1em;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1.2fr 3fr; /* 保持两列布局 比例分配*/
+    gap: 15px; /* 减少主内容区域间距 */
+    padding: 15px; /* 减少主内容区域内边距 */
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.input-section {
+    background: #f8f9fa;
+    padding: 15px; /* 减少输入区域内边距 */
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+}
+
+/* 平铺布局的输出区域 - 零留白优化 */
+.output-section {
+    display: grid;
+    grid-template-columns: 2fr 3fr; /* SQL结果占2份，数据展示占3份 */
+    gap: 8px; /* 进一步减少输出区域间距 */
+    background: #f8f9fa;
+    padding: 10px; /* 减少输出区域内边距 */
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+}
+
+/* SQL结果区域 - 零左右留白 */
+.sql-result-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+    padding: 0; /* 完全移除内边距 */
+}
+
+/* 数据展示区域 - 零左右留白 */
+.data-display-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 550px;
+    padding: 0; /* 完全移除内边距 */
+}
+
+.section-title {
+    font-size: 1.4em;
+    color: #2c3e50;
+    margin-bottom: 12px; /* 减少下边距 */
+    font-weight: 600;
+    padding: 0 5px; /* 添加少量内边距避免文字贴边 */
+}
+
+.input-group {
+    margin-bottom: 12px;
+    padding: 0 5px; /* 添加少量内边距避免内容贴边 */
+}
+
+label {
+    display: block;
+    margin-bottom: 6px; /* 减少下边距 */
+    font-weight: 500;
+    color: #495057;
+    font-size: 1.1em;
+}
+
+textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 10px; /* 减少文本框内边距 */
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: vertical;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.button-group {
+    display: flex;
+    gap: 6px; /* 减少按钮间距 */
+    flex-wrap: wrap;
+    padding: 0 5px; /* 添加少量内边距避免按钮贴边 */
+}
+
+button {
+    padding: 8px 14px; /* 减少按钮内边距 */
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    flex: 1;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-clear {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-clear:hover {
+    background: #c82333;
+}
+
+/* 结果区域优化 - 零左右留白 */
+.result-area {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px; /* 减少结果区域内边距 */
+    min-height: 450px;
+    max-height: 650px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0; /* 移除外边距 */
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 15px;
+    color: #667eea;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error {
+    color: #dc3545;
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px; /* 减少错误信息内边距 */
+    border-radius: 5px;
+    margin: 8px 0;
+}
+
+/* SQL编辑器特殊样式 - 优化显示效果 */
+.sql-editor {
+    min-height: 220px; /* 增加高度 */
+    background: #1a202c; /* 更深的背景色 */
+    color: #e2e8f0;
+    border: 2px solid #4a5568;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 12px; /* 优化内边距 */
+}
+
+/* SQL操作按钮组 */
+.sql-actions {
+    display: flex;
+    gap: 6px; /* 减少按钮间距 */
+    margin-top: 10px; /* 减少上边距 */
+    padding: 0 5px; /* 添加少量内边距避免按钮贴边 */
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+/* 示例问题样式 */
+.example-queries {
+    margin-top: 12px; /* 减少上边距 */
+    padding: 0 5px; /* 添加少量内边距 */
+}
+
+.example-queries h4 {
+    margin-bottom: 6px; /* 减少下边距 */
+    color: #495057;
+    font-size: 1.2em;
+}
+
+.example-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 减少示例项间距 */
+}
+
+.example-item {
+    padding: 6px 10px; /* 减少示例项内边距 */
+    background: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+}
+
+.example-item:hover {
+    background: #dee2e6;
+    border-color: #adb5bd;
+}
+
+/* 数据表格样式优化 */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px; /* 减少上边距 */
+    font-size: 14px;
+}
+
+.data-table th {
+    background: #f8f9fa;
+    padding: 8px; /* 减少表头内边距 */
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    color: #495057;
+}
+
+.data-table td {
+    padding: 8px; /* 减少单元格内边距 */
+    border-bottom: 1px solid #e9ecef;
+}
+
+.data-table tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.data-table tr:hover {
+    background: #e9ecef;
+}
+
+/* 分页样式优化 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* 减少分页元素间距 */
+    margin-top: 12px; /* 减少上边距 */
+    padding: 10px; /* 减少分页区内边距 */
+}
+
+.pagination button {
+    padding: 5px 10px; /* 减少分页按钮内边距 */
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination button:hover {
+    background: #5a6fd8;
+}
+
+.pagination button:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* 状态栏样式优化 */
+.status-bar {
+    background: #f8f9fa;
+    padding: 10px 15px; /* 减少状态栏内边距 */
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.status-bar span:first-child {
+    font-weight: 500;
+}
+
+/* 响应式设计优化 - 针对零留白布局调整 */
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .output-section {
+        grid-template-columns: 1fr; /* 小屏幕时垂直排列 */
+        gap: 10px;
+    }
+    
+    .container {
+        max-width: 100%;
+        margin: 5px;
+        border-radius: 10px;
+    }
+    
+    .header {
+        padding: 12px 15px;
+    }
+    
+    .header h1 {
+        font-size: 1.8em;
+    }
+    
+    /* 移动端恢复少量内边距避免内容贴边 */
+    .sql-result-section, .data-display-section {
+        padding: 0 5px;
+    }
+}
+
+/* 修改前768px */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 10px; /* 移动端进一步减少内边距 */
+        gap: 10px;
+    }
+    
+    .input-section, .output-section {
+        padding: 10px;
+    }
+    
+    .button-group, .sql-actions {
+        flex-direction: column;
+    }
+    
+    .header h1 {
+        font-size: 1.6em;
+    }
+    
+    .header p {
+        font-size: 0.9em;
+    }
+    
+    .status-bar {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+        padding: 8px 10px;
+    }
+    
+    /* 移动端调整区域高度 */
+    .sql-result-section {
+        min-height: 320px;
+    }
+    
+    .data-display-section {
+        min-height: 450px;
+    }
+    
+    .result-area {
+        min-height: 280px;
+        max-height: 350px;
+        padding: 10px;
+    }
+    
+    /* 移动端为内容区域添加少量内边距 */
+    .input-group, .sql-actions, .example-queries {
+        padding: 0 3px;
+    }
+}

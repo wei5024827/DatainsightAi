@@ -2,8 +2,8 @@
 # 1. 导入依赖
 # -----------------------------
 from fastapi import APIRouter
-import duckdb                    # 用于查询数据库元数据
-import logging                  # 日志模块
+import duckdb  # 用于查询数据库元数据
+import logging  # 日志模块
 
 
 # -----------------------------
@@ -20,9 +20,7 @@ logger = logging.getLogger(__name__)
 # 示例：GET /schema
 # -----------------------------
 router = APIRouter(
-    prefix="/schema",   # 访问路径: GET /schema
-    
-    tags=["Schema"]     # Swagger 文档中分类标签
+    prefix="/schema", tags=["Schema"]  # 访问路径: GET /schema  # Swagger 文档中分类标签
 )
 
 
@@ -30,7 +28,7 @@ router = APIRouter(
 # 4. 创建数据库连接（可复用）
 # -----------------------------
 # 与 query_executor.py 一样的连接方式
-conn = duckdb.connect("app/example.duckdb")
+conn = duckdb.connect("app/example.duckdb", read_only=False)
 
 
 # -----------------------------
@@ -86,10 +84,11 @@ async def get_schema():
     # 3）返回 JSON
     return {"schema": schema}
 
-#test code
+
+# test code
 
 if __name__ == "__main__":
-    import asyncio 
+    import asyncio
 
     schema = asyncio.run(get_schema())
 

@@ -53,7 +53,7 @@ def test_query(sql):
         if response.status_code == 200:
             result = response.json()
             print("✅ SQL执行成功")
-            print(66666666, result)
+            # print(66666666, result)
             if len(result) > 0:
                 print(f"返回行数: {len(result)}")
                 print("前5行数据:")
@@ -67,35 +67,35 @@ def test_query(sql):
         print(f"❌ 连接失败: {e}")
 
 
-def main():
-    """主测试函数"""
-    print("🚀 DataInsight AI 后端API测试")
-    print("=" * 50)
+# def main():
+#     """主测试函数"""
+#     print("🚀 DataInsight AI 后端API测试")
+#     print("=" * 50)
 
-    # 1. 测试数据库结构
-    test_schema()
+#     # 1. 测试数据库结构
+#     test_schema()
 
-    # 2. 测试自然语言转SQL
-    # test_questions = [
-    #     "查询所有用户",
-    #     "统计北京的用户数量",
-    #     "查询订单总金额",
-    #     "显示最近7天的订单",
-    #     "查询价格最高的产品",
-    # ]
-    test_questions = ["统计北京的用户数量",]
+#     # 2. 测试自然语言转SQL
+#     # test_questions = [
+#     #     "查询所有用户",
+#     #     "统计北京的用户数量",
+#     #     "查询订单总金额",
+#     #     "显示最近7天的订单",
+#     #     "查询价格最高的产品",
+#     # ]
+#     test_questions = ["统计北京的用户数量",]
 
-    for question in test_questions:
-        sql = test_nl2sql(question)
-        if sql:
-            # 3. 测试SQL执行
-            test_query(sql)
+#     for question in test_questions:
+#         sql = test_nl2sql(question)
+#         if sql:
+#             # 3. 测试SQL执行
+#             test_query(sql)
 
-    print("\n" + "=" * 50)
-    print("📖 更多测试方法:")
-    print("1. 访问API文档: http://localhost:8000/docs")
-    print("2. 使用curl命令测试")
-    print("3. 使用Postman等API测试工具")
+#     print("\n" + "=" * 50)
+#     print("📖 更多测试方法:")
+#     print("1. 访问API文档: http://localhost:8000/docs")
+#     print("2. 使用curl命令测试")
+#     print("3. 使用Postman等API测试工具")
 
 
 if __name__ == "__main__":

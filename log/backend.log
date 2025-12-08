@@ -1,30 +1,292 @@
 INFO:     Will watch for changes in these directories: ['/home/reslack/opt/github/datainsight-ai/backend']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [51880] using WatchFiles
-2025-12-05 14:39:49,268 [INFO] app.main - 🚀 FastAPI 启动中...
-INFO:     Started server process [51883]
+INFO:     Started reloader process [94434] using WatchFiles
+第 1 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 2 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 3 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+连接数据库失败，已达到最大重试次数：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+初始化 DuckDB 连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:10:14,742 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [94437]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'app/api/v1/nl2sql.py'. Reloading...
+INFO:     127.0.0.1:45648 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:10:33,014 [INFO] root - 收到 Query SQL：SELECT * FROM users;
+2025-12-05 17:10:33,014 [INFO] app.core.query_executor - 开始执行 SQL：SELECT * FROM users;
+2025-12-05 17:10:33,014 [WARNING] app.core.query_executor - 第 1 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:10:34,016 [WARNING] app.core.query_executor - 第 2 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:10:35,017 [WARNING] app.core.query_executor - 第 3 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:10:35,018 [ERROR] app.core.query_executor - 连接数据库失败，已达到最大重试次数：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:10:35,018 [ERROR] app.core.query_executor - 执行 SQL 失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:10:35,018 [ERROR] root - SQL 执行失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+INFO-00001 执行 SQL：SELECT * FROM users;
+INFO:     127.0.0.1:45648 - "POST /query/ HTTP/1.1" 500 Internal Server Error
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [51883]
-2025-12-05 14:40:32,934 [INFO] app.main - 🚀 FastAPI 启动中...
-INFO:     Started server process [52254]
+INFO:     Finished server process [94437]
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
+2025-12-05 17:11:45,805 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [94970]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     192.168.31.104:54183 - "GET /redoc HTTP/1.1" 200 OK
-INFO:     192.168.31.104:54184 - "GET /openapi.json HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'app/api/v1/nl2sql.py'. Reloading...
+2025-12-05 17:11:46,289 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [95010]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [52254]
-2025-12-05 14:42:10,409 [INFO] app.main - 🚀 FastAPI 启动中...
-INFO:     Started server process [52658]
+INFO:     Finished server process [95010]
+2025-12-05 17:11:50,888 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [95079]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     192.168.31.104:54260 - "GET / HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46260 - "POST /query HTTP/1.1" 307 Temporary Redirect
-INFO:     127.0.0.1:46260 - "POST /query/ HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:47450 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:11:52,315 [INFO] root - 收到 Query SQL：select * from users;
+2025-12-05 17:11:52,315 [INFO] app.core.query_executor - 开始执行 SQL：select * from users;
+2025-12-05 17:11:52,332 [INFO] app.core.query_executor - SQL 执行成功，共返回 5 行。
+INFO-00001 执行 SQL：select * from users;
+INFO:     127.0.0.1:47450 - "POST /query/ HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [95079]
+第 1 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 2 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 3 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+连接数据库失败，已达到最大重试次数：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+初始化 DuckDB 连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:11:59,835 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [95161]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:46776 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:11:59,849 [INFO] root - 收到 Query SQL：select * from users;
+2025-12-05 17:11:59,849 [INFO] app.core.query_executor - 开始执行 SQL：select * from users;
+2025-12-05 17:11:59,850 [WARNING] app.core.query_executor - 第 1 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:12:00,851 [WARNING] app.core.query_executor - 第 2 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:12:01,852 [WARNING] app.core.query_executor - 第 3 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:12:01,853 [ERROR] app.core.query_executor - 连接数据库失败，已达到最大重试次数：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:12:01,853 [ERROR] app.core.query_executor - 执行 SQL 失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:12:01,853 [ERROR] root - SQL 执行失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+INFO-00001 执行 SQL：select * from users;
+INFO:     127.0.0.1:46776 - "POST /query/ HTTP/1.1" 500 Internal Server Error
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [95161]
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
+2025-12-05 17:12:06,252 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [95230]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+2025-12-05 17:12:06,760 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [95270]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:48304 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:13:29,456 [INFO] root - 收到 Query SQL：SELECT * FROM users;
+2025-12-05 17:13:29,457 [INFO] app.core.query_executor - 开始执行 SQL：SELECT * FROM users;
+2025-12-05 17:13:29,467 [INFO] app.core.query_executor - SQL 执行成功，共返回 5 行。
+INFO-00001 执行 SQL：SELECT * FROM users;
+INFO:     127.0.0.1:48304 - "POST /query/ HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
+第 1 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 2 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 3 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+连接数据库失败，已达到最大重试次数：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+初始化 DuckDB 连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:14:25,936 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96007]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:45554 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:14:26,741 [INFO] root - 收到 Query SQL：select * from users;
+2025-12-05 17:14:26,742 [INFO] app.core.query_executor - 开始执行 SQL：select * from users;
+2025-12-05 17:14:26,742 [WARNING] app.core.query_executor - 第 1 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:14:27,743 [WARNING] app.core.query_executor - 第 2 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:14:28,744 [WARNING] app.core.query_executor - 第 3 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:14:28,744 [ERROR] app.core.query_executor - 连接数据库失败，已达到最大重试次数：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:14:28,744 [ERROR] app.core.query_executor - 执行 SQL 失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:14:28,744 [ERROR] root - SQL 执行失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+INFO-00001 执行 SQL：select * from users;
+INFO:     127.0.0.1:45554 - "POST /query/ HTTP/1.1" 500 Internal Server Error
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96007]
+第 1 次连接失败：name 'f' is not defined
+第 2 次连接失败：name 'f' is not defined
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
+第 3 次连接失败：name 'f' is not defined
+连接数据库失败，已达到最大重试次数：name 'f' is not defined
+初始化 DuckDB 连接失败：name 'f' is not defined
+2025-12-05 17:14:38,684 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96092]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+第 1 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 2 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 3 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+连接数据库失败，已达到最大重试次数：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+初始化 DuckDB 连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:14:41,163 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96140]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/core/query_executor.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96140]
+第 1 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 2 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+第 3 次连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+连接数据库失败，已达到最大重试次数：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+初始化 DuckDB 连接失败：Connection Error: Can't open a connection to same database file with a different configuration than existing connections
+2025-12-05 17:14:45,856 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96200]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/api/v1/schema.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96200]
+WARNING:  WatchFiles detected changes in 'app/api/v1/schema.py'. Reloading...
+2025-12-05 17:15:28,674 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96413]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+2025-12-05 17:15:29,187 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96453]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/api/v1/schema.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96453]
+WARNING:  WatchFiles detected changes in 'app/api/v1/schema.py'. Reloading...
+2025-12-05 17:15:31,698 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96509]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+2025-12-05 17:15:32,200 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96549]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:47328 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:15:36,200 [INFO] root - 收到 Query SQL：select * from users;
+2025-12-05 17:15:36,200 [INFO] app.core.query_executor - 开始执行 SQL：select * from users;
+2025-12-05 17:15:36,208 [INFO] app.core.query_executor - SQL 执行成功，共返回 5 行。
+INFO-00001 执行 SQL：select * from users;
+INFO:     127.0.0.1:47328 - "POST /query/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47330 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:15:44,385 [INFO] root - 收到 Query SQL：insert into users(id,name,city) values(6,'sdf','Beijing');
+2025-12-05 17:15:44,385 [INFO] app.core.query_executor - 开始执行 SQL：insert into users(id,name,city) values(6,'sdf','Beijing');
+2025-12-05 17:15:44,407 [INFO] app.core.query_executor - SQL 执行成功，共返回 1 行。
+INFO-00001 执行 SQL：insert into users(id,name,city) values(6,'sdf','Beijing');
+INFO:     127.0.0.1:47330 - "POST /query/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45840 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:15:50,147 [INFO] root - 收到 Query SQL：select * from users;
+2025-12-05 17:15:50,147 [INFO] app.core.query_executor - 开始执行 SQL：select * from users;
+2025-12-05 17:15:50,148 [INFO] app.core.query_executor - SQL 执行成功，共返回 6 行。
+INFO-00001 执行 SQL：select * from users;
+INFO:     127.0.0.1:45840 - "POST /query/ HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/api/v1/schema.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96549]
+2025-12-05 17:15:59,642 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96677]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/api/v1/schema.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96677]
+2025-12-05 17:16:04,755 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96739]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app/api/v1/schema.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96739]
+WARNING:  WatchFiles detected changes in 'app/api/v1/schema.py'. Reloading...
+2025-12-05 17:16:09,557 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96798]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+2025-12-05 17:16:10,046 [INFO] app.main - 🚀 FastAPI 启动中...
+INFO:     Started server process [96838]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:45212 - "OPTIONS /nl2sql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45212 - "POST /nl2sql HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:45212 - "OPTIONS /nl2sql/ HTTP/1.1" 200 OK
+2025-12-05 17:16:14,701 [INFO] root - 收到 NL2SQL 请求：统计每个城市的用户数量
+2025-12-05 17:16:14,717 [INFO] app.api.v1.schema - 检测到数据表：['orders', 'products', 'users']
+2025-12-05 17:16:14,718 [INFO] app.core.llm_client - 调用 LLM 生成 SQL，prompt 前 50 字符：'\n你是一个 SQL 生成专家。\n\n下面是数据库的结构，请务必严格按照这些表和字段生成 SQL：\n\n数'
+2025-12-05 17:16:15,120 [INFO] httpx - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-12-05 17:16:16,516 [INFO] app.core.llm_client - LLM 输出前 80 字符：'```sql\nSELECT city, COUNT(*) AS user_count FROM users GROUP BY city;\n```'
+2025-12-05 17:16:16,516 [INFO] app.utils.sql_parser - 从 Markdown 代码块提取 SQL 成功：'SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;'
+INFO:     127.0.0.1:45212 - "POST /nl2sql/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45212 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:16:17,557 [INFO] root - 收到 Query SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+2025-12-05 17:16:17,557 [INFO] app.core.query_executor - 开始执行 SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+2025-12-05 17:16:17,564 [INFO] app.core.query_executor - SQL 执行成功，共返回 4 行。
+INFO-00001 执行 SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+INFO:     127.0.0.1:45212 - "POST /query/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46664 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:16:28,163 [INFO] root - 收到 Query SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+2025-12-05 17:16:28,163 [INFO] app.core.query_executor - 开始执行 SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+2025-12-05 17:16:28,165 [INFO] app.core.query_executor - SQL 执行成功，共返回 4 行。
+INFO-00001 执行 SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+INFO:     127.0.0.1:46664 - "POST /query/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46664 - "POST /query HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:16:32,073 [INFO] root - 收到 Query SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+2025-12-05 17:16:32,074 [INFO] app.core.query_executor - 开始执行 SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+2025-12-05 17:16:32,076 [INFO] app.core.query_executor - SQL 执行成功，共返回 4 行。
+INFO-00001 执行 SQL：SELECT city, COUNT(*) AS user_count FROM users GROUP BY city;
+INFO:     127.0.0.1:46664 - "POST /query/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46664 - "POST /nl2sql HTTP/1.1" 307 Temporary Redirect
+2025-12-05 17:16:34,524 [INFO] root - 收到 NL2SQL 请求：查询2024年的订单总额
+2025-12-05 17:16:34,527 [INFO] app.api.v1.schema - 检测到数据表：['orders', 'products', 'users']
+2025-12-05 17:16:34,528 [INFO] app.core.llm_client - 调用 LLM 生成 SQL，prompt 前 50 字符：'\n你是一个 SQL 生成专家。\n\n下面是数据库的结构，请务必严格按照这些表和字段生成 SQL：\n\n数'
+2025-12-05 17:16:34,682 [INFO] httpx - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2025-12-05 17:16:38,005 [INFO] app.core.llm_client - LLM 输出前 80 字符："```sql\nSELECT SUM(amount) AS total_amount \nFROM orders \nWHERE date >= '2024-01-0"
+2025-12-05 17:16:38,005 [INFO] app.utils.sql_parser - 从 Markdown 代码块提取 SQL 成功："SELECT SUM(amount) AS total_amount \nFROM orders \nWHERE date >= '2024-01-01' AND "
+INFO:     127.0.0.1:46664 - "POST /nl2sql/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47222 - "OPTIONS /query HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47222 - "POST /query HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:47222 - "OPTIONS /query/ HTTP/1.1" 200 OK
+2025-12-05 17:16:48,957 [INFO] root - 收到 Query SQL：SELECT SUM(amount) AS total_amount 
+FROM orders 
+WHERE date >= '2024-01-01' AND date <= '2024-12-31';
+2025-12-05 17:16:48,957 [INFO] app.core.query_executor - 开始执行 SQL：SELECT SUM(amount) AS total_amount 
+FROM orders 
+WHERE date >= '2024-01-01' AND date <= '2024-12-31';
+2025-12-05 17:16:48,961 [INFO] app.core.query_executor - SQL 执行成功，共返回 1 行。
+INFO-00001 执行 SQL：SELECT SUM(amount) AS total_amount 
+FROM orders 
+WHERE date >= '2024-01-01' AND date <= '2024-12-31';
+INFO:     127.0.0.1:47222 - "POST /query/ HTTP/1.1" 200 OK
+INFO:     192.168.31.104:59464 - "POST /query/?sql=select%20count%281%29%20from%20user HTTP/1.1" 422 Unprocessable Entity
+INFO:     192.168.31.104:59476 - "GET /docs HTTP/1.1" 200 OK
+INFO:     192.168.31.104:59476 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [96838]
+INFO:     Stopping reloader process [94434]

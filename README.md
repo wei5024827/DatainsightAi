@@ -9,3 +9,17 @@ FastAPI  backend目录
 --项目启动  pnpm dev --host
 --退出：ctrl +c 
 --项目重建：项目会自动重建
+
+
+# 用脚本启停，查看状态
+./app-manager.sh start
+./app-manager.sh stop
+./app-manager.sh status
+./app-manager.sh help
+
+
+
+duckdb文件被锁住
+lsof /home/reslack/opt/github/datainsight-ai/example.duckdb
+
+kill -9 PID

@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------
 # 1. 数据库文件路径
 # ---------------------------------------
-DB_PATH = "example.duckdb"
+DB_PATH = "app/example.duckdb"
 
 # 如果文件已存在，删除重新生成（确保数据干净）
 if os.path.exists(DB_PATH):

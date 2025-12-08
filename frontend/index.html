@@ -1,13 +1,91 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataInsight AI - 自然语言转SQL</title>
+    <!-- 引入外部CSS文件 -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 缩小标题区域 -->
+        <div class="header">
+            <h1>DataInsight AI</h1>
+            <p>自然语言转SQL查询工具</p>
+        </div>
+
+        <div class="main-content">
+            <div class="input-section">
+                <h3 class="section-title">输入自然语言问题</h3>
+                <div class="input-group">
+                    <label for="nl-input">请输入您的问题：</label>
+                    <textarea id="nl-input" placeholder="例如：查询北京的用户数量"></textarea>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-primary" onclick="sendNL2SQL()">生成SQL</button>
+                    <button class="btn-secondary" onclick="clearInput()">清空输入</button>
+                    <button class="btn-clear" onclick="clearResults()">清空结果</button>
+                </div>
+
+                <div class="example-queries">
+                    <h4>示例问题：</h4>
+                    <div class="example-list">
+                        <div class="example-item" onclick="fillExample('查询北京的用户数量')">查询北京的用户数量</div>
+                        <div class="example-item" onclick="fillExample('显示上海的用户列表')">显示上海的用户列表</div>
+                        <div class="example-item" onclick="fillExample('统计每个城市的用户数量')">统计每个城市的用户数量</div>
+                        <div class="example-item" onclick="fillExample('查询2024年的订单总额')">查询2024年的订单总额</div>
+                        <div class="example-item" onclick="fillExample('找出消费金额最高的前5个用户')">找出消费金额最高的前5个用户</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 平铺显示SQL结果和数据展示 -->
+            <div class="output-section">
+                <!-- SQL结果区域 -->
+                <div class="sql-result-section">
+                    <h3 class="section-title">SQL结果</h3>
+                    <div class="input-group">
+                        <label for="sql-editor">SQL编辑器（可编辑）：</label>
+                        <textarea id="sql-editor" class="sql-editor" placeholder="生成的SQL将显示在这里，您可以编辑后执行"></textarea>
+                    </div>
+                    
+                    <div class="sql-actions">
+                        <button class="btn-success" onclick="executeSQL()">执行SQL</button>
+                        <button class="btn-secondary" onclick="copySQL()">复制SQL</button>
+                        <button class="btn-clear" onclick="clearSQL()">清空SQL</button>
+                    </div>
+                </div>
+
+                <!-- 数据展示区域 -->
+                <div class="data-display-section">
+                    <h3 class="section-title">数据展示</h3>
+                    <div id="data-container" class="result-area">
+                        <!-- 点击执行SQL后正常展示数据 -->
+                    </div>
+                    
+                    <div class="pagination" id="pagination" style="display: none;">
+                        <button onclick="changePage(-1)">上一页</button>
+                        <span class="pagination-info" id="page-info">第 1 页，共 1 页</span>
+                        <button onclick="changePage(1)">下一页</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>正在处理请求，请稍候...</p>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <span id="status">就绪</span>
+            <span>后端API: /nl2sql, /query</span>
+        </div>
+    </div>
+
+    <!-- 引入外部JavaScript文件 -->
+    <script src="js/app.js"></script>
+</body>
 </html>
