@@ -1,14 +1,7 @@
-# -----------------------------
-# 1. 导入依赖
-# -----------------------------
 from fastapi import APIRouter
-import duckdb  # 用于查询数据库元数据
-import logging  # 日志模块
+import duckdb  
+import logging  
 
-
-# -----------------------------
-# 2. 初始化 logger
-# -----------------------------
 logger = logging.getLogger(__name__)
 
 
@@ -16,24 +9,15 @@ logger = logging.getLogger(__name__)
 # 3. 创建路由对象
 # 数据库 Schema 返回接口 (GET /schema)
 # 功能：返回数据库的完整 Schema，用于帮助 LLM 生成 SQL。
-# 请求方式：GET
-# 示例：GET /schema
 # -----------------------------
 router = APIRouter(
-    prefix="/schema", tags=["Schema"]  # 访问路径: GET /schema  # Swagger 文档中分类标签
+    prefix="/schema", tags=["Schema"] 
 )
 
 
-# -----------------------------
-# 4. 创建数据库连接（可复用）
-# -----------------------------
-# 与 query_executor.py 一样的连接方式
 conn = duckdb.connect("app/example.duckdb", read_only=False)
 
 
-# -----------------------------
-# 5. 工具函数：读取所有表名
-# -----------------------------
 def get_tables() -> list:
     """
     读取数据库中的所有表名
@@ -45,10 +29,6 @@ def get_tables() -> list:
     logger.info(f"检测到数据表：{tables}")
     return tables
 
-
-# -----------------------------
-# 6. 工具函数：读取某个表的字段结构
-# -----------------------------
 def get_table_schema(table_name: str) -> list[dict]:
     """
     使用 PRAGMA table_info 读取表结构
@@ -63,9 +43,6 @@ def get_table_schema(table_name: str) -> list[dict]:
     return [dict(zip(columns, row)) for row in rows]
 
 
-# -----------------------------
-# 7. API：返回数据库所有表结构
-# -----------------------------
 @router.get("/")
 async def get_schema():
     """
@@ -73,19 +50,10 @@ async def get_schema():
     """
 
     schema = {}
-
-    # 1）获取所有表名
     tables = get_tables()
-
-    # 2）对每个表获取字段结构
     for table in tables:
         schema[table] = get_table_schema(table)
-
-    # 3）返回 JSON
     return {"schema": schema}
-
-
-# test code
 
 if __name__ == "__main__":
     import asyncio

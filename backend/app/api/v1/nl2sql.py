@@ -4,8 +4,6 @@ from app.core.llm_client import generate_sql_from_llm
 from app.utils.sql_parser import extract_sql
 import logging
 import json
-
-# ⭐ 新增：导入 Schema 读取函数
 from app.api.v1.schema import get_schema
 
 
@@ -13,9 +11,6 @@ from app.api.v1.schema import get_schema
 # 创建路由对象
 # 自然语言转SQL接口 (POST /nl2sql)
 # 功能：将自然语言问题转换为SQL查询
-# 请求方式：POST
-# 请求体：{"text": "你的问题"}
-# 示例：查询用户数量、订单统计等
 # -----------------------------
 router = APIRouter(
     prefix="/nl2sql",
@@ -30,11 +25,11 @@ async def nl2sql_handler(req: NLRequest):
     if not req.text or req.text.strip() == "":
         raise HTTPException(status_code=400, detail="text 字段不能为空")
 
-    # ⭐ 第一步：获取数据库结构
-    schema_data = await get_schema()   # 返回 {"schema": {...}}
+
+    schema_data = await get_schema()  
     schema_json = json.dumps(schema_data["schema"], ensure_ascii=False, indent=2)
 
-    # ⭐ 第二步：构造 Prompt（注入 Schema）
+
     prompt = f"""
 你是一个 SQL 生成专家。
 
@@ -68,7 +63,7 @@ async def nl2sql_handler(req: NLRequest):
     return {
         "sql": sql,
         "raw_output": llm_output,
-        "schema_used": schema_json  # 可选返回，方便调试
+        "schema_used": schema_json  
     }
 
 if __name__ == "__main__":
