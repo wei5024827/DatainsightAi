@@ -1,16 +1,19 @@
 import duckdb  
 import logging  
 from typing import List, Dict  
+import os
 
 logger = logging.getLogger(__name__)
 
 def get_db_connection():
     """获取数据库连接，支持重试机制"""
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    db_path = os.path.join(BASE_DIR, "app/example.duckdb")
     max_retries = 3
     for attempt in range(max_retries):
         try:
             # 尝试以读写模式连接
-            conn = duckdb.connect("app/example.duckdb", read_only=False)
+            conn = duckdb.connect(db_path, read_only=True)
             logger.info("DuckDB 连接成功。")
             return conn
         except Exception as e:
@@ -32,15 +35,15 @@ except Exception as e:
     # 设置为None，后续在run_sql中动态创建连接
     conn = None
 
-def _is_sql_safe(sql: str) -> bool:
-    """
-    检查 SQL 是否包含危险操作。
-    我们不允许 DELETE、DROP、UPDATE、ALTER 这种写操作。
-    """
-    sql_upper = sql.upper()
+# def _is_sql_safe(sql: str) -> bool:
+#     """
+#     检查 SQL 是否包含危险操作。
+#     我们不允许 DELETE、DROP、UPDATE、ALTER 这种写操作。
+#     """
+#     sql_upper = sql.upper()
 
-    forbidden = ["DELETE", "DROP", "UPDATE", "ALTER", "INSERT"]
-    return not any(keyword in sql_upper for keyword in forbidden)
+#     forbidden = ["DELETE", "DROP", "UPDATE", "ALTER", "INSERT"]
+#     return not any(keyword in sql_upper for keyword in forbidden)
 
 
 async def run_sql(sql: str) -> List[Dict]:
@@ -49,18 +52,16 @@ async def run_sql(sql: str) -> List[Dict]:
     """
     print(f"INFO-00001 执行 SQL：{sql}")
 
-    # ---- 5.1 空字符串检查 ----
+    #  空字符串检查
     if not sql or not sql.strip():
         raise ValueError("SQL 不能为空。")
 
     logger.info(f"开始执行 SQL：{sql}")
 
-    # ---- 5.2 安全检查：禁止危险 SQL ----
-    if not _is_sql_safe(sql):
+    #if not _is_sql_safe(sql):
         # raise ValueError(
         #     "检测到危险 SQL（INSERT/DELETE/UPDATE/DROP/ALTER 不允许执行）。"
         # )
-        pass
 
     # 使用局部连接，避免全局连接被锁定
     local_conn = None
@@ -101,9 +102,9 @@ async def run_sql(sql: str) -> List[Dict]:
                 pass
 
 
-# if __name__ == "__main__":
-#     import asyncio
+if __name__ == "__main__":
+    import asyncio
 
-#     test_sql = "SELECT * FROM users;"
-#     result = asyncio.run(run_sql(test_sql))
-#     print(result)
+    test_sql = "SELECT id, name, city FROM users WHERE city = '上海';"
+    result = asyncio.run(run_sql(test_sql))
+    print(result)

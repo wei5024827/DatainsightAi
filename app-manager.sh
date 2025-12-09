@@ -11,7 +11,7 @@ APP_NAME="DataInsight AI"
 BACKEND_DIR="$SCRIPT_DIR/backend"
 FRONTEND_DIR="$SCRIPT_DIR/frontend"
 BACKEND_PORT=8000
-FRONTEND_PORT=5173
+FRONTEND_PORT=5174
 BACKEND_PID_FILE="$SCRIPT_DIR/work/backend.pid"
 FRONTEND_PID_FILE="$SCRIPT_DIR/work/frontend.pid"
 LOG_DIR="$SCRIPT_DIR/log"
@@ -189,7 +189,7 @@ stop_service() {
     fi
 
     # 最后释放端口上的进程
-    kill_port_if_occupied 5173 "前端"
+    kill_port_if_occupied 5174 "前端"
     kill_port_if_occupied 8000 "后端"
 }
 

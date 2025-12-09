@@ -1,11 +1,15 @@
 
 > frontend@0.0.0 dev /home/reslack/opt/github/datainsight-ai/frontend
-> vite --host
+> vite --host 0.0.0.0 --port 5174
 
 
-  VITE v7.2.6  ready in 154 ms
+  VITE v7.2.6  ready in 221 ms
 
-  ➜  Local:   http://localhost:5173/
-  ➜  Network: http://10.255.255.254:5173/
-  ➜  Network: http://192.168.31.250:5173/
+  ➜  Local:   http://localhost:5174/
+  ➜  Network: http://10.255.255.254:5174/
+  ➜  Network: http://192.168.31.250:5174/
  ELIFECYCLE  Command failed.
+启动成功 (PID: 316118, 端口: 5174)
+[0;34m[2025-12-09 16:28:19][0m 停止前端服务 (PID: 316118)...
+[0;32m[SUCCESS][0m 前端服务已停止
+[0;34m[2025-12-09 16:28:21][0m 清理占用端口 5174 的进程: 316131

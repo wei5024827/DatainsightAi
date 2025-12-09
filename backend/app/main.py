@@ -4,6 +4,8 @@ import logging
 from app.api.v1.nl2sql import router as nl2sql_router
 from app.api.v1.query import router as query_router
 from app.api.v1.schema import router as schema_router
+from app.api.v1.rag import router as rag_router
+
 
 
 app = FastAPI(
@@ -33,6 +35,8 @@ logger.info("🚀 FastAPI 启动中...")
 app.include_router(nl2sql_router)   # 自然语言 → SQL
 app.include_router(query_router)    # 执行 SQL
 app.include_router(schema_router)   # 返回数据库结构
+app.include_router(rag_router)
+
 
 
 @app.get("/")

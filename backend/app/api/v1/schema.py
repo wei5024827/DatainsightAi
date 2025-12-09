@@ -15,7 +15,7 @@ router = APIRouter(
 )
 
 
-conn = duckdb.connect("app/example.duckdb", read_only=False)
+conn = duckdb.connect("app/example.duckdb", read_only=True)
 
 
 def get_tables() -> list:
@@ -54,14 +54,32 @@ async def get_schema():
     for table in tables:
         schema[table] = get_table_schema(table)
     return {"schema": schema}
+def get_full_schema() -> dict:
+    """
+    返回完整数据库 schema，供 schema_index 调用。
+    格式：
+    {
+        "users": [...],
+        "orders": [...],
+        ...
+    }
+    """
+    tables = get_tables()
+    schema = {}
 
-if __name__ == "__main__":
-    import asyncio
+    for table in tables:
+        schema[table] = get_table_schema(table)
 
-    schema = asyncio.run(get_schema())
+    return schema
 
-    for table, cols in schema["schema"].items():
-        print(f"=== 表：{table} ===")
-        for col in cols:
-            print(col)
-        print()
+
+# if __name__ == "__main__":
+#     import asyncio
+
+#     schema = asyncio.run(get_schema())
+
+#     for table, cols in schema["schema"].items():
+#         print(f"=== 表：{table} ===")
+#         for col in cols:
+#             print(col)
+#         print()
