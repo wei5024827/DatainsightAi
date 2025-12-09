@@ -49,7 +49,7 @@ async def nl2sql_handler(req: NLRequest):
     # -----------------------------
     try:
         # 根据用户问题，检索出 Top-K 个最相关的表（可根据实际情况调整 top_k）
-        relevant_tables = get_relevant_tables(user_question, top_k=5)
+        relevant_tables = get_relevant_tables(user_question, top_k=10)
         schema_text = format_tables_for_prompt(relevant_tables)
     except Exception as e:
         logging.error(f"RAG schema 检索失败：{e}")
@@ -68,7 +68,7 @@ async def nl2sql_handler(req: NLRequest):
 3. 禁止生成任何 DDL 或 DML（如 CREATE/UPDATE/DELETE/INSERT/DROP/ALTER 等），只允许 SELECT / WITH 查询。
 4. 如果根据提供的表结构无法满足用户需求，你可以尽量给出最接近的查询，但不要捏造字段。
 
-下面是与用户问题最相关的数据库表结构：
+注意只能使用下面给出的数据库表结构：
 {schema_text}
 
 用户问题：{user_question}

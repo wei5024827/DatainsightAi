@@ -31,9 +31,11 @@ def get_tables() -> list:
 
 def get_table_schema(table_name: str) -> list[dict]:
     """
-    使用 PRAGMA table_info 读取表结构
+    读取表结构信息包括comment
     """
-    sql = f"PRAGMA table_info('{table_name}');"
+    sql = f"""
+        SELECT column_name AS name, data_type AS type,comment AS comment,column_index AS cid   FROM duckdb_columns WHERE table_name = '{table_name}';
+    """
     result = conn.execute(sql)
 
     rows = result.fetchall()
@@ -42,18 +44,15 @@ def get_table_schema(table_name: str) -> list[dict]:
     # 将每一行信息转成 dict
     return [dict(zip(columns, row)) for row in rows]
 
+def get_table_comment(table_name: str) -> str: # 读取表的注释
+    sql = f"""
+        SELECT comment FROM duckdb_tables  WHERE table_name = '{table_name}';
+    """
+    result = conn.execute(sql).fetchone()
+    return result[0] if result else ""
+
 
 @router.get("/")
-async def get_schema():
-    """
-    返回数据库的完整 Schema，用于帮助 LLM 生成 SQL。
-    """
-
-    schema = {}
-    tables = get_tables()
-    for table in tables:
-        schema[table] = get_table_schema(table)
-    return {"schema": schema}
 def get_full_schema() -> dict:
     """
     返回完整数据库 schema，供 schema_index 调用。
@@ -68,7 +67,7 @@ def get_full_schema() -> dict:
     schema = {}
 
     for table in tables:
-        schema[table] = get_table_schema(table)
+        schema[f"table_name:{table};comment:{get_table_comment(table)}"] = get_table_schema(table)
 
     return schema
 

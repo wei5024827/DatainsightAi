@@ -35,8 +35,11 @@ def _get_embedding_model() -> SentenceModel:
     global _embedding_model
     if _embedding_model is None:
         logger.info("正在加载 text2vec 本地 Embedding 模型 ...")
-        # 中文效果最强，文件下载非常快
-        _embedding_model = SentenceModel("sentence-transformers/paraphrase-MiniLM-L6-v2")
+        _embedding_model = SentenceModel("BAAI/bge-large-zh")
+
+       # _embedding_model = SentenceModel("shibing624/text2vec-base-chinese")
+
+       # _embedding_model = SentenceModel("sentence-transformers/paraphrase-MiniLM-L6-v2")
         logger.info("Embedding 模型加载完成。")
     return _embedding_model
 
@@ -48,17 +51,23 @@ def _get_embedding_model() -> SentenceModel:
 # -----------------------------
 def _table_meta_to_text(table_meta: Dict[str, Any]) -> str:
     table = table_meta["table_name"]
+    table_comment = table_meta.get("comment", "")
+
     cols = table_meta["columns"]
 
     parts = []
     for col in cols:
         name = col.get("name")
         t = col.get("type")
-        parts.append(f"{name} {t}")
+        comment = col.get("comment", "")
+        if comment:
+            parts.append(f"{name} {t} ({comment})")
+        else:
+            parts.append(f"{name} {t}")
 
     columns_text = ", ".join(parts)
 
-    return f"表 {table}: {columns_text}"
+    return f"表 {table} ({table_comment}): {columns_text}"
 
 
 # -----------------------------
