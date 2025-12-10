@@ -1,11 +1,6 @@
-# -----------------------------
-# 导入依赖
-# -----------------------------
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-
-# 添加BaseModel导入
-
 import logging
 from app.core.query_executor import run_sql
 
