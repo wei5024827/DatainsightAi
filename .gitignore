@@ -14,3 +14,4 @@ log/
 .gitignore
 nohup.out
 .vscode/
+*.log
