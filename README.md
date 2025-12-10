@@ -41,11 +41,11 @@ pnpm dev --host 0.0.0.0
 
 https://localhost:5173/
 
-![alt text](Demo-1.gif)
+![alt text](src/Demo-1.gif)
 
 ## 4. 项目架构图
 
-![alt text](image-1.png)
+![alt text](src/image-1.png)
 
 
 
