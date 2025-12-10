@@ -18,16 +18,11 @@ client = OpenAI(
     base_url="https://api.deepseek.com")
 
 
-# 调用 LLM 生成 SQL 文本
 
 def generate_sql_from_llm(prompt: str) -> str:
 
-    # ---- 7.1 基本参数检查 ----
     if not prompt or not prompt.strip():
-        # 如果 prompt 是空的，直接抛异常，这是开发错误，不是 LLM 错误
         raise ValueError("Prompt must not be empty.")
-    
-    # 仅打印 prompt 的长度或前几十个字符，避免日志太长泄露信息
     logger.info(f"调用 LLM 生成 SQL，prompt 前 50 字符：{prompt[:50]!r}")
 
     try:

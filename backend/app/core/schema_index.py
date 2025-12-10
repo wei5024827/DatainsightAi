@@ -1,7 +1,7 @@
 # app/core/schema_index.py
 
 """
-基于 DuckDB schema 的 RAG 检索模块（使用 text2vec + FAISS）
+ RAG 检索模块（使用 text2vec + FAISS）
 
 功能：
 - 启动时从 DuckDB 读取所有表结构
@@ -19,18 +19,13 @@ from app.api.v1.schema import get_full_schema
 
 logger = logging.getLogger(__name__)
 
-# -----------------------------
-# 1. 全局对象
-# -----------------------------
+
 _faiss_index = None
 _id_to_table_meta: List[Dict[str, Any]] = []
 _embedding_model: SentenceModel = None
 
 
 
-# -----------------------------
-# 2. 加载 text2vec 模型
-# -----------------------------
 def _get_embedding_model() -> SentenceModel:
     global _embedding_model
     if _embedding_model is None:
@@ -45,10 +40,6 @@ def _get_embedding_model() -> SentenceModel:
 
 
 
-
-# -----------------------------
-# 4. schema → 文本
-# -----------------------------
 def _table_meta_to_text(table_meta: Dict[str, Any]) -> str:
     table = table_meta["table_name"]
     table_comment = table_meta.get("comment", "")
@@ -70,9 +61,6 @@ def _table_meta_to_text(table_meta: Dict[str, Any]) -> str:
     return f"表 {table} ({table_comment}): {columns_text}"
 
 
-# -----------------------------
-# 5. 初始化 FAISS 索引
-# -----------------------------
 def init_schema_index() -> None:
     global _faiss_index, _id_to_table_meta
 
@@ -109,10 +97,9 @@ def init_schema_index() -> None:
     logger.info(f"[RAG] schema 索引初始化完成，共 {len(_id_to_table_meta)} 张表。")
 
 
-# -----------------------------
-# 6. 基于用户问题做 RAG 检索
-# -----------------------------
-def get_relevant_tables(query: str, top_k: int = 5):
+# 基于用户问题做 RAG 检索
+
+def get_relevant_tables(query: str, top_k: int = 10):
     if not query.strip():
         return []
 
@@ -143,9 +130,7 @@ def get_relevant_tables(query: str, top_k: int = 5):
     return results
 
 
-# -----------------------------
-# 7. 格式化 schema，用于 prompt
-# -----------------------------
+#  格式化 schema，用于 prompt
 def format_tables_for_prompt(tables: List[Dict[str, Any]]) -> str:
     if not tables:
         return "（未检索到相关表结构，请尽量根据常规 SQL 规范生成查询。）"

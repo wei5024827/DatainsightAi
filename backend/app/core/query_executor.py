@@ -58,11 +58,6 @@ async def run_sql(sql: str) -> List[Dict]:
 
     logger.info(f"开始执行 SQL：{sql}")
 
-    #if not _is_sql_safe(sql):
-        # raise ValueError(
-        #     "检测到危险 SQL（INSERT/DELETE/UPDATE/DROP/ALTER 不允许执行）。"
-        # )
-
     # 使用局部连接，避免全局连接被锁定
     local_conn = None
     try:
@@ -102,9 +97,9 @@ async def run_sql(sql: str) -> List[Dict]:
                 pass
 
 
-if __name__ == "__main__":
-    import asyncio
+# if __name__ == "__main__":
+#     import asyncio
 
-    test_sql = "SELECT id, name, city FROM users WHERE city = '上海';"
-    result = asyncio.run(run_sql(test_sql))
-    print(result)
+#     test_sql = "SELECT id, name, city FROM users WHERE city = '上海';"
+#     result = asyncio.run(run_sql(test_sql))
+#     print(result)

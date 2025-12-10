@@ -7,20 +7,10 @@ logger = logging.getLogger(__name__)
 def extract_sql(llm_output: str) -> str:
     """
     从 LLM（如 gpt-4o）生成的文本中提取 SQL 语句。
-
-    LLM 可能返回：
-        - 纯 SQL
-        - 带 Markdown 代码块 ```sql ... ```
-        - 前后带解释性文字
-        - 多条 SQL，但我们只取第一条有效 SQL
-
-    本函数的目标：
-        只提取最核心的 SQL，并返回干净的 SQL 字符串。
     """
 
   
     if not llm_output or not llm_output.strip():
-        # LLM 返回了空字符串 → 无法提取 SQL
         logger.warning("LLM 输出为空，无法提取 SQL。")
         return ""
 

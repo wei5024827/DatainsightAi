@@ -29,13 +29,13 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
-logger.info("🚀 FastAPI 启动中...")
+logger.info("FastAPI 启动中...")
 
 
 app.include_router(nl2sql_router)   # 自然语言 → SQL
 app.include_router(query_router)    # 执行 SQL
 app.include_router(schema_router)   # 返回数据库结构
-app.include_router(rag_router)
+app.include_router(rag_router) # RAG Schema 调试接口
 
 
 
