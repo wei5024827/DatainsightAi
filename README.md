@@ -43,6 +43,26 @@ https://localhost:5173/
 
 ![alt text](src/Demo-1.gif)
 
+#### 4. Docker 一键运行
+```bash
+# 1) 准备环境变量
+cp .env.example .env
+# 然后编辑 .env，填入 DEEPSEEK_API_KEY
+
+# 2) 构建并启动（项目根目录执行）
+docker compose up -d --build
+
+# 3) 访问
+# 前端: http://localhost:5174
+# 后端: http://localhost:8000
+# API 文档: http://localhost:8000/docs
+```
+
+停止与清理：
+```bash
+docker compose down
+```
+
 ## 4. 项目架构图
 
 ![alt text](src/image-1.png)

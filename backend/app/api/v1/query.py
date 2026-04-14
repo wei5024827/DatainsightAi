@@ -1,7 +1,8 @@
+import logging
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-import logging
+
 from app.core.query_executor import run_sql
 
 
@@ -10,23 +11,19 @@ class QueryRequest(BaseModel):
 
 
 router = APIRouter(prefix="/query", tags=["Query"])
+logger = logging.getLogger(__name__)
 
 
-# 接口：执行 SQL 查询
 @router.post("/")
-async def run_query(req: QueryRequest):  # 修改参数类型
-    """
-    接收 SQL → 调用 query_executor 执行 → 返回结果
-    """
-
-    logging.info(f"收到 Query SQL：{req.sql}")  # 修改为req.sql
-    if not req.sql or req.sql.strip() == "":  # 修改为req.sql
+async def run_query(req: QueryRequest):
+    """接收 SQL，执行并返回结果。"""
+    sql = req.sql.strip() if req.sql else ""
+    if not sql:
         raise HTTPException(status_code=400, detail="SQL 不能为空")
+
+    logger.info("收到 Query SQL：%s", sql)
     try:
-        result = await run_sql(req.sql)  # 修改为req.sql
-
-    except Exception as e:
-        logging.error(f"SQL 执行失败：{e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-    return result
+        return await run_sql(sql)
+    except Exception as exc:
+        logger.error("SQL 执行失败：%s", exc)
+        raise HTTPException(status_code=500, detail=str(exc))

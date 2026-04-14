@@ -1,60 +1,46 @@
-import os  
-import logging 
-from dotenv import load_dotenv 
+import logging
+import os
+
+from dotenv import load_dotenv
 from openai import OpenAI
 
-logger = logging.getLogger(__name__) 
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-api_key = os.getenv("DEEPSEEK_API_KEY")
+LLM_API_KEY = os.getenv("LLM_API_KEY") or os.getenv("KIMI_API_KEY") or os.getenv("DEEPSEEK_API_KEY")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.moonshot.cn/v1")
+LLM_MODEL = os.getenv("LLM_MODEL", "kimi2.5")
 
-if not api_key:
-    logger.error("环境变量 OPENAI_API_KEY 未设置，请检查 .env 或系统环境变量配置。")
-    raise ValueError("OPENAI_API_KEY is not set in environment variables.")
+if not LLM_API_KEY:
+    logger.error("未检测到 LLM API Key，请在 .env 中配置 LLM_API_KEY。")
+    raise ValueError("LLM_API_KEY is not set in environment variables.")
 
-client = OpenAI(
-    api_key=api_key,
-    base_url="https://api.deepseek.com")
-
+client = OpenAI(api_key=LLM_API_KEY, base_url=LLM_BASE_URL)
 
 
 def generate_sql_from_llm(prompt: str) -> str:
-
-    if not prompt or not prompt.strip():
+    normalized_prompt = prompt.strip() if prompt else ""
+    if not normalized_prompt:
         raise ValueError("Prompt must not be empty.")
-    logger.info(f"调用 LLM 生成 SQL，prompt 前 50 字符：{prompt[:50]!r}")
+
+    logger.info("调用 LLM 生成 SQL，model=%s, prompt 前 50 字符：%r", LLM_MODEL, normalized_prompt[:50])
 
     try:
         response = client.chat.completions.create(
-            model="deepseek-chat",  
-            messages=[
-                {
-                    "role": "user",      
-                    "content": prompt    # prompt 作为内容传给模型
-                }
-            ],
-            temperature=0,              # 温度设为 0，尽量让输出稳定、确定，避免 SQL 随机变化
-            max_tokens=256              # 限制最大输出长度，防止生成太长的无关内容
+            model=LLM_MODEL,
+            messages=[{"role": "user", "content": normalized_prompt}],
+            temperature=0,
+            max_tokens=256,
         )
-
-
-    except Exception as e:
-        logger.error(f"调用 OpenAI LLM 失败：{e}")
+    except Exception as exc:
+        logger.error("调用 LLM 失败（model=%s, base_url=%s）：%s", LLM_MODEL, LLM_BASE_URL, exc)
         raise
 
-    llm_output = response.choices[0].message.content
-
+    llm_output = response.choices[0].message.content or ""
     if not llm_output:
         logger.warning("LLM 返回内容为空。")
         return ""
 
-    logger.info(f"LLM 输出前 80 字符：{llm_output[:80]!r}")
-
+    logger.info("LLM 输出前 80 字符：%r", llm_output[:80])
     return llm_output
-
-    
-# if __name__ == "__main__":
-#      print(api_key)
-#      llm_output = generate_sql_from_llm("生成一个查询所有用户的 SQL 语句,用户表为users")
-#      print(llm_output)
