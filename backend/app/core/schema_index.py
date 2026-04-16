@@ -8,10 +8,17 @@ import logging
 import re
 from typing import Any, Dict, List
 
-import faiss
-from text2vec import SentenceModel
+try:
+    import faiss
+except ImportError:  # pragma: no cover - 运行环境缺依赖时走降级逻辑
+    faiss = None
 
-from app.api.v1.schema import get_full_schema
+try:
+    from text2vec import SentenceModel
+except ImportError:  # pragma: no cover - 运行环境缺依赖时走降级逻辑
+    SentenceModel = None
+
+from app.core.schema_service import get_full_schema
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +28,9 @@ _embedding_model: SentenceModel = None
 
 
 def _get_embedding_model() -> SentenceModel:
+    if SentenceModel is None:
+        raise RuntimeError("text2vec is not installed")
+
     global _embedding_model
     if _embedding_model is None:
         logger.info("正在加载 text2vec 本地 Embedding 模型 ...")
@@ -81,7 +91,7 @@ def _table_meta_to_text(table_meta: Dict[str, Any]) -> str:
 def init_schema_index() -> None:
     global _faiss_index, _id_to_table_meta
 
-    if _faiss_index is not None:
+    if _faiss_index is not None or _id_to_table_meta:
         return
 
     logger.info("[RAG] 开始初始化 schema 索引 ...")
@@ -93,6 +103,12 @@ def init_schema_index() -> None:
         return
 
     texts = [_table_meta_to_text(t) for t in tables]
+    _id_to_table_meta = tables
+
+    if faiss is None or SentenceModel is None:
+        logger.warning("[RAG] faiss/text2vec 不可用，schema 检索退化为关键词匹配。")
+        return
+
     model = _get_embedding_model()
     embeddings = model.encode(texts)
 
@@ -101,7 +117,6 @@ def init_schema_index() -> None:
     index.add(embeddings)
 
     _faiss_index = index
-    _id_to_table_meta = tables
     logger.info("[RAG] schema 索引初始化完成，共 %d 张表。", len(_id_to_table_meta))
 
 
@@ -110,10 +125,28 @@ def get_relevant_tables(query: str, top_k: int = 10):
     if not query.strip():
         return []
 
-    if _faiss_index is None:
+    if _faiss_index is None and not _id_to_table_meta:
         init_schema_index()
-    if _faiss_index is None:
+    if not _id_to_table_meta:
         return []
+
+    if _faiss_index is None:
+        scored = []
+        lowered_query = query.lower()
+        for table_meta in _id_to_table_meta:
+            corpus = _table_meta_to_text(table_meta).lower()
+            score = 0
+            if table_meta["table_name"].lower() in lowered_query:
+                score += 100
+            for char in set(lowered_query):
+                if char.strip() and char in corpus:
+                    score += 1
+            if score > 0:
+                scored.append((score, table_meta))
+        scored.sort(key=lambda item: item[0], reverse=True)
+        results = [{**table_meta, "score": float(score)} for score, table_meta in scored[:top_k]]
+        logger.info("[RAG] query='%s' → 表: %s（关键词降级）", query, [r["table_name"] for r in results])
+        return results
 
     model = _get_embedding_model()
     q = model.encode([query])

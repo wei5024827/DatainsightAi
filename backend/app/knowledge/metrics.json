@@ -1,0 +1,34 @@
+[
+  {
+    "id": "metric_xzkhsr",
+    "name": "新增客户收入",
+    "aliases": ["新增客收", "新开户收入"],
+    "keywords": ["新增客户", "收入", "指标编码"],
+    "description": "员工收入分析场景中的新增客户收入指标。通常来自收入指标表，通过指标编码筛选。",
+    "source_table": "tygyjzbtj",
+    "code_field": "zbdm",
+    "code_value": "XZKHSR",
+    "value_field": "zbz",
+    "default_aggregation": "sum",
+    "examples": [
+      "查询 2026 年 1 月新增客户收入",
+      "按员工汇总新增客户收入"
+    ]
+  },
+  {
+    "id": "metric_total_income",
+    "name": "总收入",
+    "aliases": ["员工总收入", "收入合计"],
+    "keywords": ["收入", "合计", "汇总"],
+    "description": "示例总收入指标。落地时应替换为公司实际指标编码和口径。",
+    "source_table": "tygyjzbtj",
+    "code_field": "zbdm",
+    "code_value": "ZSR",
+    "value_field": "zbz",
+    "default_aggregation": "sum",
+    "examples": [
+      "查询员工总收入",
+      "查询营业部收入合计"
+    ]
+  }
+]

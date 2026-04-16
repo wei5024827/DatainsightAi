@@ -1,0 +1,17 @@
+[
+  {
+    "id": "join_income_employee",
+    "name": "收入表关联员工基础信息",
+    "aliases": ["tygyjzbtj 关联 emp_bas_info"],
+    "keywords": ["收入", "员工", "关联", "营业部"],
+    "description": "员工收入事实表与员工基础信息表的常见关联方式。",
+    "tables": ["tygyjzbtj", "emp_bas_info"],
+    "join_keys": [
+      "tygyjzbtj.ryid = emp_bas_info.emp_num"
+    ],
+    "sql_hint": "from tygyjzbtj t join emp_bas_info t1 on t.ryid = t1.emp_num",
+    "examples": [
+      "查询员工姓名、营业部和收入"
+    ]
+  }
+]

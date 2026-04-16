@@ -1,0 +1,38 @@
+[
+  {
+    "id": "term_front_regular_employee",
+    "name": "前台在编员工",
+    "aliases": ["前台编内员工", "前台正式员工"],
+    "keywords": ["前台", "在编", "员工"],
+    "description": "满足前台岗位、在编状态、统计期在职的员工口径。请根据实际人员状态表和岗位表补充完整条件。",
+    "required_tables": ["emp_bas_info", "emp_status_snapshot"],
+    "join_keys": [
+      "emp_bas_info.emp_num = emp_status_snapshot.emp_num"
+    ],
+    "logic_steps": [
+      "通过员工基础信息表定位员工主数据",
+      "通过人员状态快照表按统计月份判断是否在职且在编",
+      "通过岗位序列或岗位标识判断是否属于前台条线"
+    ],
+    "sql_hint": "exists (select 1 from emp_status_snapshot s where s.emp_num = t1.emp_num and s.snapshot_mon = t.mon and s.position_series = '前台' and s.staffing_flag = '在编' and s.employment_status = '在职')",
+    "examples": [
+      "查询前台在编员工 2026 年 1 月收入",
+      "前台编内员工新增客户收入"
+    ]
+  },
+  {
+    "id": "term_employee_dimension",
+    "name": "员工",
+    "aliases": ["人员", "员工维度"],
+    "keywords": ["员工", "人员", "姓名"],
+    "description": "员工维度查询通常使用员工基础信息表提供姓名、机构、员工号等属性。",
+    "required_tables": ["emp_bas_info"],
+    "join_keys": [
+      "业务事实表.ryid = emp_bas_info.emp_num"
+    ],
+    "examples": [
+      "按员工汇总",
+      "查询某员工收入"
+    ]
+  }
+]

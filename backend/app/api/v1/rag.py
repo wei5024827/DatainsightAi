@@ -7,9 +7,9 @@ from app.core.schema_index import (
     init_schema_index,
     get_relevant_tables,
     format_tables_for_prompt,
-    get_full_schema,
    # _load_schema_from_duckdb,   # 直接复用 schema 读取函数
 )
+from app.core.schema_service import get_full_schema
 
 router = APIRouter(
     prefix="/rag",

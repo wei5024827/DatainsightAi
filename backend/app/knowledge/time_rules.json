@@ -1,0 +1,24 @@
+[
+  {
+    "id": "time_rule_month_yyyymm",
+    "name": "收入月份口径",
+    "aliases": ["月份映射规则", "mon 字段规则"],
+    "keywords": ["月份", "年月", "mon", "YYYYMM"],
+    "description": "收入类月度统计字段 mon 使用 YYYYMM 数值型，不是 DATE 类型。",
+    "examples": [
+      "2026年1月 -> mon = 202601",
+      "2025年12月 -> mon = 202512"
+    ],
+    "sql_hint": "禁止生成 mon = DATE '2026-01-01' 之类日期写法；应直接使用 mon = 202601"
+  },
+  {
+    "id": "time_rule_year_range",
+    "name": "收入年度口径",
+    "aliases": ["年度范围规则"],
+    "keywords": ["年度", "全年", "year"],
+    "description": "如果用户查询全年月度口径，可按 YYYY01 到 YYYY12 进行范围过滤。",
+    "examples": [
+      "2026年 -> mon between 202601 and 202612"
+    ]
+  }
+]
